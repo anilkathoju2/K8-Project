@@ -11,3 +11,5 @@ spec:
   - name: debug
     image: anilkathoju/debug:v1
     imagePullPolicy: Always
+    imagePullSecrets:
+    - name: dockerhub-secret
