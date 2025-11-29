@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: redis
+   namespace: roboshop
+   labels:
+    project: roboshop
+    component: redis
+    tier: db
+spec:
+   replicas: 1
+   selector:
+     matchLabels: #labels are used to select pods
+      project: roboshop
+      component: redis
+      tier: db 
+      #pod definition
+   template:
+     metadata: 
+       labels:
+          project: roboshop
+          component: redis
+          tier: db 
+     spec:
+       containers:
+        - name: redis
+          image: redis:7.0
+          imagePullPolicy: Always
+
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+             tcpSocket:
+              port: 6379
+             initialDelaySeconds: 15
+             periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name : redis
+   namespace: roboshop
+spec:
+  selector:
+    project: roboshop
+    component: redis
+    tier: db
+  ports:
+    - protocol: TCP
+      port: 6379  # servcie port
+      targetPort: 6379 # container
+        
