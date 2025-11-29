@@ -26,7 +26,13 @@ spec:
         - name: mysql
           image: anilkathoju/mysql:v1
           imagePullPolicy: Always
-
+          resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits: 
+            memory: "1Gi"
+            cpu: "500m"
           readinessProbe:
             tcpSocket:
               port: 3306
