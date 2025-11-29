@@ -1,54 +1,71 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-   name: mysql
-   namespace: roboshop
-   labels:
+  name: mysql
+  namespace: roboshop
+  labels:
     project: roboshop
     component: mysql
     tier: db
 spec:
-   replicas: 1
-   selector:
-     matchLabels: #labels are used to select pods
+  replicas: 1
+  selector:
+    matchLabels:
       project: roboshop
       component: mysql
-      tier: db 
-      #pod definition
-   template:
-     metadata: 
-       labels:
-          project: roboshop
-          component: mysql
-          tier: db 
-     spec:
-       containers:
+      tier: db
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        component: mysql
+        tier: db
+    spec:
+      containers:
         - name: mysql
           image: anilkathoju/mysql:v1
           imagePullPolicy: Always
+
+          # ---------- FIX OOM CRASH ON T3.MICRO ----------
           resources:
-          requests:
-            memory: "512Mi"
-            cpu: "200m"
-          limits: 
-            memory: "1Gi"
-            cpu: "500m"
+            requests:
+              memory: "300Mi"
+              cpu: "100m"
+            limits:
+              memory: "700Mi"
+              cpu: "500m"
+
+          # ---------- REQUIRED MYSQL ENV VARS ----------
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "RoboShop@1"
+
+            # Reduce memory usage for t3.micro
+            - name: MYSQL_INNODB_BUFFER_POOL_SIZE
+              value: "128M"
+            - name: MYSQL_INNODB_LOG_FILE_SIZE
+              value: "64M"
+            - name: MYSQL_INNODB_BUFFER_POOL_INSTANCES
+              value: "1"
+
+          # ---------- PROBES ----------
           readinessProbe:
             tcpSocket:
               port: 3306
             initialDelaySeconds: 10
             periodSeconds: 10
+
           livenessProbe:
-             tcpSocket:
+            tcpSocket:
               port: 3306
-             initialDelaySeconds: 30
-             periodSeconds: 10
+            initialDelaySeconds: 30
+            periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
 metadata:
-   name : mysql
-   namespace: roboshop
+  name: mysql
+  namespace: roboshop
 spec:
   selector:
     project: roboshop
@@ -56,6 +73,5 @@ spec:
     tier: db
   ports:
     - protocol: TCP
-      port: 3306  # servcie port
-      targetPort: 3306 # container
-        
+      port: 3306
+      targetPort: 3306
