@@ -9,7 +9,7 @@ metadata:
     tier: db
 spec:
    replicas: 1
-   selectors:
+   selector:
      matchLabels: #labels are used to select pods
       project: roboshop
       component: mongodb
