@@ -1,3 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: catalogue
+   namespace: roboshop
+data: 
+   MONGO: "true"
+   MONGO_URL: "mongodb://mongodb:27017/catalogue" # catalogue service we are defining as configMap & inject to container inside pod
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -25,6 +35,10 @@ spec:
        containers:
         - name: catalogue
           image: anilkathoju/catalogue:v1
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef: 
+                name: catalogue 
           readinessProbe:
             tcpSocket:
               port: 8080
