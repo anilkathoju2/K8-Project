@@ -25,8 +25,12 @@ spec:
        containers:
         - name: rabbitmq
           image: rabbitmq:3
-          imagePullPolicy: Always
-
+          env:
+          - name: RABBITMQ_DEFAULT_USER
+            value: roboshop
+            name: RABBITMQ_DEFAULT_PASS
+            value: roboshop123
+          imagePullPolicy: Always  
           readinessProbe:
             tcpSocket:
               port: 5672
