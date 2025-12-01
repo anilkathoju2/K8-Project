@@ -73,6 +73,7 @@ Update kubeconfig:
 aws eks update-kubeconfig --region us-east-1 --name eks-project
 
 📁 Folder Structure
+
 K8-Project/
 
     ├── cart/
