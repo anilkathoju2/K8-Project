@@ -39,16 +39,21 @@ spec:
           envFrom:
             - configMapRef: 
                 name: catalogue 
-          readinessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 10
-          livenessProbe:
-             tcpSocket:
-              port: 8080
-             initialDelaySeconds: 15
-             periodSeconds: 10
+              ports:
+              - name: liveness-port
+                containerPort: 8080
+              readinessProbe:
+                httpGet:
+                  path: /health
+                  port: liveness-port
+                failureThreshold: 1
+                periodSeconds: 15
+              livenessProbe:
+                httpGet:
+                  path: /health
+                  port: liveness-port
+                failureThreshold: 1
+                periodSeconds: 15
 ---
 apiVersion: v1
 kind: Service

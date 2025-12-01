@@ -30,13 +30,13 @@ spec:
            tier: db
    spec:
      containers:
-       - name: mysql
-         image: anilkathoju/mysql
-         imagePullPolicy: Always
-         volumeMounts:
-         - name: mysql-config
-           mountPath: /etc/mysql/conf.d/my.cnf
-           subPath: my.cnf
+     - name: mysql
+       image: anilkathoju/mysql
+       imagePullPolicy: Always
+       volumeMounts:
+       - name: mysql-config
+         mountPath: /etc/mysql/conf.d/my.cnf
+         subPath: my.cnf
 
 
      volumes:
