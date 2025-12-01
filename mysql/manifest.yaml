@@ -22,8 +22,8 @@ spec:
         component: mysql
         tier: db
    template:
-      labels: 
       metadata:
+        labels: 
            project: roboshop
            component: mysql
            tier: db
