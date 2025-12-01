@@ -74,18 +74,18 @@ aws eks update-kubeconfig --region us-east-1 --name eks-project
 
 📁 Folder Structure
 K8-Project/
-├── cart/
-├── catalogue/
-├── user/
-├── shipping/
-├── payment/
-├── frontend/
-├── mysql/
-├── mongodb/
-├── redis/
-├── rabbitmq/
-├── debug/
-└── eks.yaml
+    ├── cart/
+    ├── catalogue/
+    ├── user/
+    ├── shipping/
+    ├── payment/
+    ├── frontend/
+    ├── mysql/
+    ├── mongodb/
+    ├── redis/
+    ├── rabbitmq/
+    ├── debug/
+    └── eks.yaml
 
 
 Each folder contains:
