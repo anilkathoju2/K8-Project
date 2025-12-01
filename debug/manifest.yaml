@@ -7,9 +7,9 @@ metadata:
     name: debug
     project: roboshop
 spec:
+  imagePullSecrets:
+    - name: dockerhub-secret   
   containers:
-  - name: debug
-    image: anilkathoju/debug:v1
-    imagePullPolicy: Always
-    imagePullSecrets:
-    - name: dockerhub-secret
+    - name: debug
+      image: anilkathoju/debug:v1
+      imagePullPolicy: Always
