@@ -12,36 +12,35 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-   name: mysql
-   namespace: roboshop
+  name: mysql
+  namespace: roboshop
 spec:
-   replicas: 1
-   selector: 
-      matchLabels:
+  replicas: 1
+  selector: 
+    matchLabels:
+      project: roboshop
+      component: mysql
+      tier: db
+  template:
+    metadata:
+      labels:
         project: roboshop
         component: mysql
         tier: db
-   template:
-      metadata:
-        labels: 
-           project: roboshop
-           component: mysql
-           tier: db
-   spec:
-     containers:
-     - name: mysql
-       image: anilkathoju/mysql
-       imagePullPolicy: Always
-       volumeMounts:
-       - name: mysql-config
-         mountPath: /etc/mysql/conf.d/my.cnf
-         subPath: my.cnf
+    spec:
+      containers:
+        - name: mysql
+          image: anilkathoju/mysql
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: mysql-config
+              mountPath: /etc/mysql/conf.d/my.cnf
+              subPath: my.cnf
+      volumes:
+        - name: mysql-config
+          configMap:
+            name: mysql
 
-
-     volumes:
-       - name: mysql-config
-         configMap:
-           name: mysql  
      
 ---
 apiVersion: v1
