@@ -1,8 +1,5 @@
-
-
 apiVersion: apps/v1
 kind: Deployment
-metadata:
 metadata:
     name: frontend
     namespace: roboshop
@@ -14,15 +11,15 @@ spec:
     replicas: 1
     selector:
        matchLabels:
-       labels:    
         project: roboshop
         component: frontend
         tier: frontend
     template:
-        labels:
-         project: roboshop
-         component: frontend
-         tier: frontend
+       metadata:
+         labels:
+          project: roboshop
+          component: frontend
+          tier: frontend
     spec:
        containers:
        -  name: frontend
