@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: anilkathoju/mysql
+          image: anilkathoju/mysql:v1
           imagePullPolicy: Always
           volumeMounts:
             - name: mysql-config
