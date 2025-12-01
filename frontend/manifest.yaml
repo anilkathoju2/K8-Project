@@ -37,7 +37,7 @@ spec:
            livenessProbe:
             httpGet:
               path: /
-            port: liveness-port
+              port: liveness-port
             failureThreshold: 1
             periodSeconds: 15
 ---
